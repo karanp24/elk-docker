@@ -15,6 +15,10 @@ ENV REFRESHED_AT 2016-08-20
 #                                INSTALLATION
 ###############################################################################
 
+### Added by Ramon
+RUN useradd -ms /bin/bash elkuser \
+  && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+
 ### install prerequisites (cURL, gosu)
 
 ENV GOSU_VERSION 1.8
@@ -51,6 +55,7 @@ RUN groupadd -r elasticsearch -g ${ES_GID} \
  && apt-get install -qqy \
 		elasticsearch=${ES_VERSION} \
 		openjdk-8-jdk \
+		sudo \
  && apt-get clean
 
 
@@ -149,4 +154,5 @@ RUN chmod +x /usr/local/bin/start.sh
 EXPOSE 5601 9200 9300 5000 5044
 VOLUME /var/lib/elasticsearch
 
-CMD [ "/usr/local/bin/start.sh" ]
+USER elkuser
+CMD [ "sudo","/usr/local/bin/start.sh" ]
