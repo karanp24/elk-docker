@@ -17,7 +17,7 @@ ENV REFRESHED_AT 2016-08-20
 
 ### Added by Ramon
 RUN useradd -ms /bin/bash elkuser \
-  && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+  && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 ### install prerequisites (cURL, gosu)
 
