@@ -140,6 +140,7 @@ RUN chmod 644 /etc/logrotate.d/elasticsearch \
  && chmod 777 /var/run
 
 ### Grant privileges - Added by Ramon
+RUN apt-get install -qqy --no-install-recommends sudo
 RUN useradd -ms /bin/bash elkuser \
  && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -155,4 +156,4 @@ EXPOSE 5601 9200 9300 5000 5044
 VOLUME /var/lib/elasticsearch
 
 USER elkuser
-CMD [ "sudo","/usr/local/bin/start.sh" ]
+CMD [ "/usr/bin/sudo","/usr/local/bin/start.sh" ]
