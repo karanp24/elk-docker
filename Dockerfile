@@ -15,10 +15,6 @@ ENV REFRESHED_AT 2016-08-20
 #                                INSTALLATION
 ###############################################################################
 
-### Added by Ramon
-RUN useradd -ms /bin/bash elkuser \
-  && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
 ### install prerequisites (cURL, gosu)
 
 ENV GOSU_VERSION 1.8
@@ -55,7 +51,7 @@ RUN groupadd -r elasticsearch -g ${ES_GID} \
  && apt-get update -qq \
  && apt-get install -qqy \
 		elasticsearch=${ES_VERSION} \
-		openjdk-8-jdk sudo \
+		openjdk-8-jdk \
  && apt-get clean
 
 
@@ -142,6 +138,10 @@ RUN chmod 644 /etc/logrotate.d/elasticsearch \
  && chmod 644 /etc/logrotate.d/logstash \
  && chmod 644 /etc/logrotate.d/kibana \
  && chmod 777 /var/run
+
+### Grant privileges - Added by Ramon
+RUN useradd -ms /bin/bash elkuser \
+ && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 
 ###############################################################################
