@@ -54,8 +54,7 @@ RUN groupadd -r elasticsearch -g ${ES_GID} \
  && apt-get update -qq \
  && apt-get install -qqy \
 		elasticsearch=${ES_VERSION} \
-		openjdk-8-jdk \
-		sudo \
+		openjdk-8-jdk sudo \
  && apt-get clean
 
 
