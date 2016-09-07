@@ -156,4 +156,4 @@ EXPOSE 5601 9200 9300 5000 5044
 VOLUME /var/lib/elasticsearch
 
 USER elkuser
-CMD [ "/usr/bin/sudo","/usr/local/bin/start.sh" ]
+CMD [ "su","-c","/usr/local/bin/start.sh" ]
