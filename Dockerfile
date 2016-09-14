@@ -45,7 +45,6 @@ ENV ES_UID 991
 RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 RUN echo deb http://packages.elasticsearch.org/elasticsearch/2.x/debian stable main > /etc/apt/sources.list.d/elasticsearch-2.x.list
 
-# Inastall the necesaries packages
 RUN groupadd -r elasticsearch -g ${ES_GID} \
  && useradd -r -s /usr/sbin/nologin -M -c "Elasticsearch service user" -u ${ES_UID} -g elasticsearch elasticsearch \
  && apt-get update -qq \
@@ -139,11 +138,6 @@ RUN chmod 644 /etc/logrotate.d/elasticsearch \
  && chmod 644 /etc/logrotate.d/kibana \
  && chmod 777 /var/run
 
-### Grant privileges - Added by Ramon
-RUN apt-get install -qqy --no-install-recommends sudo
-RUN useradd -ms /bin/bash elkuser \
- && echo "elkuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
 
 ###############################################################################
 #                                   START
@@ -155,5 +149,4 @@ RUN chmod +x /usr/local/bin/start.sh
 EXPOSE 5601 9200 9300 5000 5044
 VOLUME /var/lib/elasticsearch
 
-USER elkuser
-CMD [ "su","-c","/usr/local/bin/start.sh" ]
+CMD [ "/usr/local/bin/start.sh" ]
